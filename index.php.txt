@@ -94,8 +94,8 @@ function processUpdate($update) {
                     if ($user['ref_code'] === $ref && $id != $chat_id) {
                         $users[$chat_id]['referred_by'] = $id;
                         $users[$id]['referrals']++;
-                        $users[$id]['balance'] += 50;
-                        sendMessage($id, "🎉 New referral! +50 points bonus!");
+                        $users[$id]['balance'] += 500;
+                        sendMessage($id, "🎉 New referral! +500 points bonus!");
                         break;
                     }
                 }
@@ -123,11 +123,11 @@ function processUpdate($update) {
         switch ($data) {
             case 'earn':
                 $time_diff = time() - $users[$chat_id]['last_earn'];
-                if ($time_diff < 60) {
-                    $remaining = 60 - $time_diff;
+                if ($time_diff < 10) {
+                    $remaining = 10 - $time_diff;
                     $msg = "⏳ Please wait $remaining seconds before earning again!";
                 } else {
-                    $earn = 10;
+                    $earn = 100;
                     $users[$chat_id]['balance'] += $earn;
                     $users[$chat_id]['last_earn'] = time();
                     $msg = "✅ You earned $earn points!\nNew balance: {$users[$chat_id]['balance']}";
@@ -151,7 +151,7 @@ function processUpdate($update) {
                 break;
                 
             case 'referrals':
-                $msg = "👥 Referral System\nYour code: <b>{$users[$chat_id]['ref_code']}</b>\nReferrals: {$users[$chat_id]['referrals']}\nInvite link: t.me/" . BOT_TOKEN . "?start={$users[$chat_id]['ref_code']}\n50 points per referral!";
+                $msg = "👥 Referral System\nYour code: <b>{$users[$chat_id]['ref_code']}</b>\nReferrals: {$users[$chat_id]['referrals']}\nInvite link: t.me/" . BOT_TOKEN . "?start={$users[$chat_id]['ref_code']}\n500 points per referral!";
                 break;
                 
             case 'withdraw':
@@ -166,7 +166,7 @@ function processUpdate($update) {
                 break;
                 
             case 'help':
-                $msg = "❓ Help\n💰 Earn: Get 10 points/min\n👥 Refer: 50 points/ref\n🏧 Withdraw: Min 100 points\nUse buttons below to navigate!";
+                $msg = "❓ Help\n💰 Earn: Get 100 points/min\n👥 Refer: 500 points/ref\n🏧 Withdraw: Min 100 points\nUse buttons below to navigate!";
                 break;
         }
         
